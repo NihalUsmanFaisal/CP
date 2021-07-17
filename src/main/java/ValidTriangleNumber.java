@@ -1,22 +1,22 @@
-public class ValidTriangleNumber {
+import java.util.Arrays;
 
-    private int canFormTriangle(int a, int b, int c){
-        if(a+b > c && b+c > a && a+c > b) return 1;
-        return 0;
-    }
+public class ValidTriangleNumber {
 
     public int solution(int[] nums){
         int result = 0;
-        if(nums.length < 3){
-            return result;
-        }
-        for(int i = 0; i < nums.length-2;i++){
-            for(int j = i+1; j < nums.length-1 ; j++){
-                for(int k = j+1; k < nums.length; k++){
-                    result += canFormTriangle(nums[i],nums[j],nums[k]);
+        Arrays.sort(nums);
+        for(int i=2;i < nums.length;i++){
+            int left = 0;
+            int right = i -1;
+            while(left < right){
+                if(nums[left] + nums[right] > nums[i]){
+                    result += (right - left);
+                    right --;
+                }
+                else{
+                    left++;
                 }
             }
-
         }
         return result;
     }
